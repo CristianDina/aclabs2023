@@ -1,5 +1,6 @@
 package com.pillar.aclabs2023.services;
 
+import com.pillar.aclabs2023.exceptions.StudentNotFoundException;
 import com.pillar.aclabs2023.models.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,11 @@ public class StudentService {
 
     public void deleteStudent(String id) {
         studentRepository.deleteById(id);
+    }
+
+    public void studentExists(String id) {
+        if(!studentRepository.existsById(id)){
+            throw new StudentNotFoundException("Student with id: " + id + " was not found.");
+        }
     }
 }
